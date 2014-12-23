@@ -6,7 +6,8 @@ Simple Key Value store supporting pluggable storage engines.
 Requirements
 -----------------
 
-Skeevy has been tested on Ruby 2.1.
+Skeevy requires Ruby 2.1 for required named parameters. Rubinius 2.4+, JRuby
+9000+ and MRI 2.1+ seem functional.
 
 Installation
 -----------------

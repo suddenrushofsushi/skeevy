@@ -4,7 +4,11 @@ module Skeevy
       include Skeevy::Cutter
 
       def cut(id:, ns:, object: nil)
-        id
+        key = ""
+        key += "#{@prefix}#{@delimiter}" unless @prefix.nil?
+        key += "#{ns}#{@delimiter}#{id}"
+        key += "#{@delimiter}#{object}" unless object.nil?
+        key
       end
 
     end

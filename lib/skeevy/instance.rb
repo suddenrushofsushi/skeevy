@@ -1,22 +1,17 @@
 module Skeevy
   class Instance
+
+    attr_reader :engine, :cutter
+
     def initialize(identifier:,
                    engine: Skeevy::Engines::File.new(base_dir: '/tmp'),
-                   cutter: Skeevy::Hasher.new)
+                   cutter: Skeevy::Cutters::StandardKey.new)
       raise(ArgumentError, "identifier must be a Symbol") unless identifier.is_a?(Symbol)
       raise(ArgumentError, "engine is not a Skeevy Engine!") unless engine.is_a?(Skeevy::Engine)
       raise(ArgumentError, "cutter is not a Skeevy Cutter!") unless cutter.is_a?(Skeevy::Cutter)
       @engine = engine
       @cutter = cutter
       @identifier = identifier
-    end
-
-    def engine
-      @engine
-    end
-
-    def cutter
-      @cutter
     end
 
     def key_for(id:, ns:, object: nil)

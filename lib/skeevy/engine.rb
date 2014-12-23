@@ -1,12 +1,7 @@
 module Skeevy
   module Engine
-    def instance=(value)
-      @instance = value
-    end
 
-    def instance
-      Skeevy.instance(@instance)
-    end
+    attr_accessor :instance
 
     def read(id:, ns:, object:)
       raise NoMethodError, "Your Engine is missing .read"

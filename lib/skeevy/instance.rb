@@ -11,6 +11,7 @@ module Skeevy
       raise(ArgumentError, "cutter is not a Skeevy Cutter!") unless cutter.is_a?(Skeevy::Cutter)
       @engine = engine
       @cutter = cutter
+      @engine.instance = @cutter.instance = self
       @identifier = identifier
     end
 

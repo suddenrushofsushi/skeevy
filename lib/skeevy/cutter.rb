@@ -1,5 +1,8 @@
 module Skeevy
   module Cutter
+
+    attr_accessor :instance
+
     def initialize(delimiter: '-', prefix: nil)
       raise(ArgumentError, "Unable to init Skeevy Cutters without a delimiter") if delimiter.nil?
       @delimiter = delimiter

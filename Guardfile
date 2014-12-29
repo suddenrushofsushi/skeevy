@@ -26,7 +26,21 @@ guard :rspec, cmd: "bundle exec rspec" do
   rspec.spec_helper = "spec/spec_helper.rb"
 
   watch(%r{^spec/.+_spec\.rb$})
-  watch(%r{^lib/(.+)\.rb$})     { |m| rspec.spec.("lib/#{m[1]}") }
+  watch(%r{^lib/(.+)\.rb$}) { |m|
+    rspec.spec.("lib/#{m[1]}")
+  }
+  watch(%r{^lib/skeevy/(.+)\.rb$}) { |m|
+    rspec.spec.("lib/skeevy/#{m[1]}")
+    rspec.spec.("lib/skeevy")
+  }
+  watch(%r{^lib/skeevy/cutters/(.+)\.rb$}) { |m|
+    rspec.spec.("lib/skeevy/cutters/#{m[1]}")
+    rspec.spec.("lib/skeevy")
+  }
+  watch(%r{^lib/skeevy/engines/(.+)\.rb$}) { |m|
+    rspec.spec.("lib/engines/#{m[1]}")
+    rspec.spec.("lib/skeevy")
+  }
   watch(rspec.spec_helper)      { rspec.spec_dir }
 
 end

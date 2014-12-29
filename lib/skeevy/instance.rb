@@ -14,8 +14,12 @@ module Skeevy
       @identifier = identifier
     end
 
-    def key_for(hash:, ns:, object: nil)
+    def object_key(hash:, ns:, object:)
       @cutter.cut(hash: hash, ns: ns, object: object)
+    end
+
+    def container_key(hash:, ns:)
+      @cutter.cut(hash: hash, ns: ns, object: nil)
     end
 
     def read(key:)
@@ -34,8 +38,8 @@ module Skeevy
       @engine.delete!(key: key)
     end
 
-    def inspect
-      { identifier: @identifier, engine: @engine, cutter: @cutter}
+    def to_s
+      { identifier: @identifier, engine: @engine, cutter: @cutter}.to_s
     end
 
   end

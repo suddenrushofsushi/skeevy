@@ -18,6 +18,20 @@ RSpec.describe :skeevy do
         Skeevy.register!(identifier: :test, cutter: "My Cutter")
       }.to raise_error(ArgumentError, /Cutter!/)
     end
+
+    it 'adds an entry to @instances' do
+      Skeevy.register!(identifier: :test)
+      expect(Skeevy.instance_variable_get('@instances')[:test]).to be_instance_of Skeevy::Instance
+    end
+  end
+
+  describe :instance do
+    let(:test_instance) { Skeevy::Instance.new(identifier: :test)}
+
+    it 'returns the instance at the given index' do
+      Skeevy.instance_variable_set('@instances', {test: test_instance})
+      expect(Skeevy.instance(:test)).to eq test_instance
+    end
   end
 
   describe :inspect do

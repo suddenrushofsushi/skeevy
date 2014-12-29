@@ -10,10 +10,17 @@ RSpec.describe :instance do
 
   end
 
-  describe '.key_for' do
+  describe '.object_key' do
     it 'passes the function to @cutter' do
       expect(cutter).to receive(:cut).with(hash: 'abc', ns: 'test', object: 'test')
-      instance.key_for(hash: 'abc', ns: 'test', object: 'test')
+      instance.object_key(hash: 'abc', ns: 'test', object: 'test')
+    end
+  end
+
+  describe '.container_key' do
+    it 'passes the function to @cutter' do
+      expect(cutter).to receive(:cut).with(hash: 'abc', ns: 'test', object: nil)
+      instance.container_key(hash: 'abc', ns: 'test')
     end
   end
 

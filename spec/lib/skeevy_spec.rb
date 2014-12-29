@@ -20,4 +20,10 @@ RSpec.describe :skeevy do
     end
   end
 
+  describe :inspect do
+    it 'outputs the proper string' do
+      expect(Skeevy.inspect).to eq "Skeevy #{Skeevy::VERSION}"
+    end
+  end
+
 end

@@ -15,4 +15,5 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_development_dependency 'rspec',   '~> 3.1'
+  s.add_development_dependency 'guard-rspec', '~> 4.4.2'
 end

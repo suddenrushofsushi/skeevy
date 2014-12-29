@@ -2,6 +2,7 @@ module Skeevy
   module Engines
     class DirectoryFile
       include Skeevy::Engine
+      require 'fileutils'
 
       def initialize(instance:, base_dir:, delimiter:, encoding: 'UTF-8')
         raise(ArgumentError, "#{base_dir} must exist to use the File Engine.") unless File.directory?(base_dir)
@@ -14,9 +15,9 @@ module Skeevy
 
       def path_for(key:)
         directory = key.split(@delimiter)
-        filename  = directory.pop
+        filename  = directory.pop # naive
         path      = File.join(@base_dir, directory)
-        ensure_exists(path)
+        ensure_exists(path: path)
         File.join(path, filename)
       end
 
@@ -26,15 +27,15 @@ module Skeevy
 
       def read(key:)
         path = path_for(key)
-        File.open(path, "w:#{@encoding}") { |f|
-          f.write contents
+        File.open(path, "r:#{@encoding}") { |f|
+          f.read
         }
       end
 
       def write(key:, content:)
         path = path_for(key)
         File.open(path, "w:#{@encoding}") { |f|
-          f.write contents
+          f.write content
         }
       end
 

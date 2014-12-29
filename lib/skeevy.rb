@@ -11,7 +11,7 @@ module Skeevy
 
   # Poor-man's singleton
   class << self
-    def register!(identifier:, engine:, cutter:)
+    def register!(identifier:, engine: nil, cutter: nil)
       @instances ||= {}
       @instances[identifier] = Instance.new identifier: identifier,
                                        engine: engine,

@@ -7,10 +7,10 @@ module Skeevy
                    engine: nil,
                    cutter: nil)
       raise(ArgumentError, "identifier must be a Symbol") unless identifier.is_a?(Symbol)
-      raise(ArgumentError, "engine is not a Skeevy Engine!") unless engine.is_a?(Skeevy::Engine)
-      raise(ArgumentError, "cutter is not a Skeevy Cutter!") unless cutter.is_a?(Skeevy::Cutter)
+      raise(ArgumentError, "engine is not a Skeevy Engine!") unless @engine.is_a?(Skeevy::Engine) || engine.nil?
+      raise(ArgumentError, "cutter is not a Skeevy Cutter!") unless @cutter.is_a?(Skeevy::Cutter) || cutter.nil?
       @cutter = cutter || Skeevy::Cutters::StandardKey.new(instance: self)
-      @engine = engine || Skeevy::Engines::File.new(base_dir: '/tmp', delimiter: @cutter.delimiter, instance: self),
+      @engine = engine || Skeevy::Engines::DirectoryFile.new(base_dir: '/tmp', delimiter: @cutter.delimiter, instance: self)
       @identifier = identifier
     end
 
@@ -32,6 +32,10 @@ module Skeevy
 
     def delete!(key:)
       @engine.delete!(key: key)
+    end
+
+    def inspect
+      { identifier: @identifier, engine: @engine, cutter: @cutter}
     end
 
   end

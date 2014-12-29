@@ -1,7 +1,7 @@
 Skeevy
 ==============
 
-Simple Key Value store supporting pluggable storage engines.
+Simple Key Value abstractions, supporting pluggable storage engines.
 
 Requirements
 -----------------

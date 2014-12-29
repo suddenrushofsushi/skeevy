@@ -22,25 +22,25 @@ module Skeevy
       end
 
       def exist?(key:)
-        File.exist? path_for(key)
+        File.exist? path_for(key: key)
       end
 
       def read(key:)
-        path = path_for(key)
+        path = path_for(key: key)
         File.open(path, "r:#{@encoding}") { |f|
           f.read
         }
       end
 
-      def write(key:, content:)
-        path = path_for(key)
+      def write!(key:, content:)
+        path = path_for(key: key)
         File.open(path, "w:#{@encoding}") { |f|
           f.write content
         }
       end
 
       def delete!(key:)
-        path = path_for(key)
+        path = path_for(key: key)
         File.unlink(path)
       end
 

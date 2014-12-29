@@ -12,14 +12,20 @@ module Skeevy
   # Poor-man's singleton
   class << self
     def register!(identifier:, engine: nil, cutter: nil)
+      raise(ArgumentError, "Identifier must be a symbol") unless identifier.is_a?(Symbol)
       @instances ||= {}
       @instances[identifier] = Instance.new identifier: identifier,
                                        engine: engine,
                                        cutter: cutter
     end
 
-    def instance(value)
-      @instances[value]
+    def instance(identifier)
+      raise(ArgumentError, "Identifier must be a symbol") unless identifier.is_a?(Symbol)
+      @instances[identifier]
+    end
+
+    def [](identifier)
+      instance(identifier)
     end
 
     def inspect

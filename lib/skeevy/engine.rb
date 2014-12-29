@@ -3,19 +3,19 @@ module Skeevy
 
     attr_accessor :instance
 
-    def read(id:, ns:, object:)
+    def read(key:)
       raise NoMethodError, "Your Engine is missing .read"
     end
 
-    def write!(id:, ns:, object:)
+    def write!(key:, content:)
       raise NoMethodError, "Your Engine is missing .write!"
     end
 
-    def exist?(id:, ns:, object:)
+    def exist?(key:)
       raise NoMethodError, "Your Engine is missing .exist?"
     end
 
-    def delete!(id:, ns:, object:)
+    def delete!(key:)
       raise NoMethodError, "Your Engine is missing .delete!"
     end
   end

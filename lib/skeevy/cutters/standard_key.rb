@@ -3,9 +3,9 @@ module Skeevy
     class StandardKey
       include Skeevy::Cutter
 
-      def cut(id:, ns:, object: nil)
+      def cut(hash:, ns:, object: nil)
         prefix ="#{@prefix}#{@delimiter}" unless @prefix.nil?
-        key = "#{ns}#{@delimiter}#{id}"
+        key = "#{ns}#{@delimiter}#{hash}"
         suffix = "#{@delimiter}#{object}" unless object.nil?
         "#{prefix}#{key}#{suffix}"
       end

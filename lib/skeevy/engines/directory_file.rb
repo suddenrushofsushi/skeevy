@@ -3,39 +3,49 @@ module Skeevy
     class DirectoryFile
       include Skeevy::Engine
 
-
-      def initialize(base_dir:)
+      def initialize(instance:, base_dir:, delimiter:, encoding: 'UTF-8')
         raise(ArgumentError, "#{base_dir} must exist to use the File Engine.") unless File.directory?(base_dir)
-        @base_dir = base_dir
+        @base_dir     = base_dir
+        @encoding     = encoding
+        @instance     = instance
+        @delimiter    = delimiter
+        @exists_cache = {}
       end
 
-      def path_for(id:, ns:, object:)
-        raise ArgumentError, "Missing id or ns" if id.nil? || ns.nil?
-        path = "#{@base}#{id[0]}/#{ns}/#{id[1..3]}/#{id[4..39]}/"
-        ensemble_mkdir!(path) if filename.nil?
-        if filename.nil?
-          path
-        else
-          File.join(path, filename.to_s)
-        end
+      def path_for(key:)
+        directory = key.split(@delimiter)
+        filename  = directory.pop
+        path      = File.join(@base_dir, directory)
+        ensure_exists(path)
+        File.join(path, filename)
       end
 
-      def exist?(id, ns, object)
-        File.exist? path_for(id, ns, filename)
+      def exist?(key:)
+        File.exist? path_for(key)
       end
 
-      def read(id, ns, object=nil)
-        path = path_for(id, ns, object)
-        File.open(path, "w:#{encoding}") { |f|
+      def read(key:)
+        path = path_for(key)
+        File.open(path, "w:#{@encoding}") { |f|
           f.write contents
         }
       end
 
-      def write(id, ns, object, content)
-        path = ensemble_path(id, ns, object)
-        File.open(path, "w:#{encoding}") { |f|
+      def write(key:, content:)
+        path = path_for(key)
+        File.open(path, "w:#{@encoding}") { |f|
           f.write contents
         }
+      end
+
+      def delete!(key:)
+        path = path_for(key)
+        File.unlink(path)
+      end
+
+      def ensure_exists(path:)
+        FileUtils.mkdir_p(path) if @exists_cache[path].nil?
+        @exists_cache[path] = true
       end
     end
   end

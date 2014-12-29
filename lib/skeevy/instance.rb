@@ -4,35 +4,34 @@ module Skeevy
     attr_reader :engine, :cutter
 
     def initialize(identifier:,
-                   engine: Skeevy::Engines::File.new(base_dir: '/tmp'),
-                   cutter: Skeevy::Cutters::StandardKey.new)
+                   engine: nil,
+                   cutter: nil)
       raise(ArgumentError, "identifier must be a Symbol") unless identifier.is_a?(Symbol)
       raise(ArgumentError, "engine is not a Skeevy Engine!") unless engine.is_a?(Skeevy::Engine)
       raise(ArgumentError, "cutter is not a Skeevy Cutter!") unless cutter.is_a?(Skeevy::Cutter)
-      @engine = engine
-      @cutter = cutter
-      @engine.instance = @cutter.instance = self
+      @cutter = cutter || Skeevy::Cutters::StandardKey.new(instance: self)
+      @engine = engine || Skeevy::Engines::File.new(base_dir: '/tmp', delimiter: @cutter.delimiter, instance: self),
       @identifier = identifier
     end
 
-    def key_for(id:, ns:, object: nil)
-      @cutter.cut(id: id, ns: ns, object: object)
+    def key_for(hash:, ns:, object: nil)
+      @cutter.cut(hash: hash, ns: ns, object: object)
     end
 
-    def read(id:, ns:, object:)
-      @engine.read(id: id, ns: ns, object: object)
+    def read(key:)
+      @engine.read(key: key)
     end
 
-    def write!(id:, ns:, object:)
-      @engine.write!(id: id, ns: ns, object: object)
+    def write!(key:, content:)
+      @engine.write!(key: key, content: content)
     end
 
-    def exist?(id: id, ns: ns, object: object)
-      @engine.exist?(id: id, ns: ns, object: object)
+    def exist?(key:)
+      @engine.exist?(key: key)
     end
 
-    def delete!(id: id, ns: ns, object: object)
-      @engine.delete!(id: id, ns: ns, object: object)
+    def delete!(key:)
+      @engine.delete!(key: key)
     end
 
   end

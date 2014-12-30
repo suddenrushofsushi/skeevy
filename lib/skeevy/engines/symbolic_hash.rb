@@ -24,7 +24,12 @@ module Skeevy
       end
 
       def delete!(key:)
-        @items.delete key.to_sym
+        k = key.to_sym
+        if @items.has_key?(k)
+          @items.delete k
+          return true
+        end
+        false
       end
 
     end

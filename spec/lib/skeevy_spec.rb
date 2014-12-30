@@ -2,7 +2,7 @@ RSpec.describe :skeevy, fakefs: true do
 
   let!(:default_instance) { Skeevy.register!(identifier: :default) }
 
-  describe :register! do
+  describe '.register!' do
     it 'requires an identifier' do
       expect { Skeevy.register! }.to raise_error(ArgumentError, /identifier/)
     end
@@ -46,7 +46,7 @@ RSpec.describe :skeevy, fakefs: true do
 
   end
 
-  describe :inspect do
+  describe '.inspect' do
     it 'outputs the proper string' do
       expect(Skeevy.inspect).to eq "Skeevy #{Skeevy::VERSION}"
     end

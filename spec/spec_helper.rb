@@ -1,5 +1,6 @@
 require 'skeevy'
 require 'fakefs/spec_helpers'
+require 'shared/engine'
 
 RSpec.configure do |config|
   config.include FakeFS::SpecHelpers, fakefs: true

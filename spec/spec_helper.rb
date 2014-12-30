@@ -1,5 +1,6 @@
 require 'skeevy'
 require 'shared/engine'
+require 'shared/cutter'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

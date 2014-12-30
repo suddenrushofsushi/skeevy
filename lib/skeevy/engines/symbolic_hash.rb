@@ -3,7 +3,7 @@ module Skeevy
     class SymbolicHash
       include Skeevy::Engine
 
-      def initialize(instance:)
+      def initialize(instance: nil)
         raise ArgumentError,
               "Instance passed was not a Skeevy::Instance" unless
               instance.is_a?(Skeevy::Instance) || instance.nil?

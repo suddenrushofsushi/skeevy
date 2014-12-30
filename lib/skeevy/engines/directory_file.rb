@@ -4,7 +4,7 @@ module Skeevy
       include Skeevy::Engine
       require 'fileutils'
 
-      def initialize(instance:, base_dir:, delimiter:, encoding: 'UTF-8')
+      def initialize(instance: nil, base_dir:, delimiter:, encoding: 'UTF-8')
         raise ArgumentError,
               "Instance passed was not a Skeevy::Instance" unless
             instance.is_a?(Skeevy::Instance) || instance.nil?

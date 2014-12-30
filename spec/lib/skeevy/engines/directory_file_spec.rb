@@ -16,10 +16,10 @@ RSpec.describe :directory_file do
     it 'rejects missing keywords' do
       expect {
         the_engine_class.new(delimiter: '-')
-      }.to raise_error(ArgumentError, /missing keywords/)
+      }.to raise_error(ArgumentError, /missing keyword/)
       expect {
         the_engine_class.new(base_dir: 'tmp')
-      }.to raise_error(ArgumentError, /missing keywords/)
+      }.to raise_error(ArgumentError, /missing keyword/)
     end
   end
 

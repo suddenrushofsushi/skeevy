@@ -7,10 +7,12 @@ module Skeevy
                    engine: nil,
                    cutter: nil)
       raise(ArgumentError, "identifier must be a Symbol") unless identifier.is_a?(Symbol)
-      raise(ArgumentError, "engine is not a Skeevy Engine!") unless @engine.is_a?(Skeevy::Engine) || engine.nil?
-      raise(ArgumentError, "cutter is not a Skeevy Cutter!") unless @cutter.is_a?(Skeevy::Cutter) || cutter.nil?
+      raise(ArgumentError, "engine #{engine} is not a Skeevy Engine!") unless engine.is_a?(Skeevy::Engine) || engine.nil?
+      raise(ArgumentError, "cutter #{cutter} is not a Skeevy Cutter!") unless cutter.is_a?(Skeevy::Cutter) || cutter.nil?
       @cutter = cutter || Skeevy::Cutters::StandardKey.new(instance: self)
       @engine = engine || Skeevy::Engines::SymbolicHash.new(instance: self)
+      @cutter.instance ||= self
+      @engine.instance ||= self
       @identifier = identifier
     end
 

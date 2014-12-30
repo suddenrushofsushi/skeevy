@@ -22,7 +22,6 @@ RSpec.describe :skeevy do
   end
 
   describe 'default instantiation' do
-
     it 'creates a default instance with only an identifier' do
       expect(default_instance).to be_instance_of(Skeevy::Instance)
     end
@@ -43,8 +42,19 @@ RSpec.describe :skeevy do
     it 'ensures [] is equivalent to .instance' do
       expect(Skeevy.instance(:default)).to equal(Skeevy[:default])
     end
-
   end
+
+  describe 'instantiation with injected dependencies' do
+    context 'with an engine' do
+      let(:my_engine) { Skeevy::Engines::DirectoryFile.new(base_dir: 'tmp', delimiter: '-') }
+      it 'registers with the instance' do
+        expect(Skeevy.register!(identifier: :with_engine,
+                                engine: my_engine)).to be_instance_of(Skeevy::Instance)
+      end
+    end
+  end
+
+
 
   describe '.inspect' do
     it 'outputs the proper string' do

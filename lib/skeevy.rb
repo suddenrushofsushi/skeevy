@@ -2,6 +2,7 @@ require 'skeevy/version'
 require 'skeevy/engine'
 require 'skeevy/cutter'
 require 'skeevy/cutters/standard_key'
+require 'skeevy/engines/symbolic_hash'
 require 'skeevy/engines/directory_file'
 require 'skeevy/instance'
 

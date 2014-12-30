@@ -1,14 +1,8 @@
-require 'skeevy'
-
-RSpec.describe :instance do
+RSpec.describe :instance, fakefs: true do
 
   let(:instance) { Skeevy::Instance.new(identifier: :test) }
-  let(:cutter) { instance.instance_variable_get '@cutter' }
-  let(:engine) { instance.instance_variable_get '@engine' }
-
-  describe '.initialize' do
-
-  end
+  let(:cutter) { instance.cutter }
+  let(:engine) { instance.engine }
 
   describe '.object_key' do
     it 'passes the function to @cutter' do

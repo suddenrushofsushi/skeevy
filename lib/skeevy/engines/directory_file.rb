@@ -5,12 +5,15 @@ module Skeevy
       require 'fileutils'
 
       def initialize(instance:, base_dir:, delimiter:, encoding: 'UTF-8')
-        raise(ArgumentError, "#{base_dir} must exist to use the File Engine.") unless File.directory?(base_dir)
+        raise ArgumentError,
+              "Instance passed was not a Skeevy::Instance" unless
+            instance.is_a?(Skeevy::Instance) || instance.nil?
         @base_dir     = base_dir
         @encoding     = encoding
         @instance     = instance
         @delimiter    = delimiter
         @exists_cache = {}
+        ensure_base_dir_exists
       end
 
       def path_for(key:)
@@ -44,9 +47,15 @@ module Skeevy
         File.unlink(path)
       end
 
+      private
+
       def ensure_exists(path:)
         FileUtils.mkdir_p(path) if @exists_cache[path].nil?
         @exists_cache[path] = true
+      end
+
+      def ensure_base_dir_exists
+        ensure_exists(path: @base_dir)
       end
     end
   end

@@ -1,5 +1,3 @@
-require 'skeevy'
-
-RSpec.describe :engine do
+RSpec.describe :engine, fakefs: true do
   pending
 end

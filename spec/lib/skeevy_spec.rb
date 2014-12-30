@@ -1,5 +1,3 @@
-require 'skeevy'
-
 RSpec.describe :skeevy, fakefs: true do
 
   let!(:default_instance) { Skeevy.register!(identifier: :default) }

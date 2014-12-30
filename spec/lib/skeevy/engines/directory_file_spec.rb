@@ -1,5 +1,3 @@
-require 'skeevy'
-
-RSpec.describe :directory_file do
+RSpec.describe :directory_file, fakefs: true do
   pending
 end

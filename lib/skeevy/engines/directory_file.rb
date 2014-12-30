@@ -24,15 +24,23 @@ module Skeevy
         File.join(path, filename)
       end
 
-      def exist?(key:)
-        File.exist? path_for(key: key)
+      def exist?(key:, path: nil)
+        if path.nil?
+          File.exist? path_for(key: key)
+        else
+          File.exist? path
+        end
       end
 
       def read(key:)
         path = path_for(key: key)
-        File.open(path, "r:#{@encoding}") { |f|
-          f.read
-        }
+        if exist?(path: path, key: nil)
+          File.open(path, "r:#{@encoding}") { |f|
+            f.read
+          }
+        else
+          nil
+        end
       end
 
       def write!(key:, content:)

@@ -31,8 +31,8 @@ RSpec.describe :skeevy do
       expect(default_instance.cutter).to be_instance_of(Skeevy::Cutters::StandardKey)
     end
 
-    it 'has a DirectoryFile engine' do
-      expect(default_instance.engine).to be_instance_of(Skeevy::Engines::DirectoryFile)
+    it 'has a SymbolicHash engine' do
+      expect(default_instance.engine).to be_instance_of(Skeevy::Engines::SymbolicHash)
     end
 
     it 'makes the default Skeeve available via .instance' do

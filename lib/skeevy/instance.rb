@@ -10,7 +10,7 @@ module Skeevy
       raise(ArgumentError, "engine is not a Skeevy Engine!") unless @engine.is_a?(Skeevy::Engine) || engine.nil?
       raise(ArgumentError, "cutter is not a Skeevy Cutter!") unless @cutter.is_a?(Skeevy::Cutter) || cutter.nil?
       @cutter = cutter || Skeevy::Cutters::StandardKey.new(instance: self)
-      @engine = engine || Skeevy::Engines::DirectoryFile.new(base_dir: 'tmp', delimiter: @cutter.delimiter, instance: self)
+      @engine = engine || Skeevy::Engines::SymbolicHash.new(instance: self)
       @identifier = identifier
     end
 

@@ -1,4 +1,4 @@
-RSpec.describe :instance, fakefs: true do
+RSpec.describe :instance do
 
   let(:instance) { Skeevy::Instance.new(identifier: :test) }
   let(:cutter) { instance.cutter }

@@ -15,11 +15,11 @@ RSpec.shared_examples 'a skeevy engine' do
 
 
   describe '#exist?' do
-    k = 'abc'
+    k = 'exist_test-file.json'
     it 'properly identifies missing items' do
       expect(dfs.exist?(key: k)).to be_falsey
     end
-    it 'properly identifes existing items' do
+    it 'properly identifies existing items' do
       dfs.write!(key: k, content: 'xyz')
       expect(dfs.exist?(key: k)).to be_truthy
     end

@@ -1,3 +1,3 @@
-RSpec.describe :engine, fakefs: true do
+RSpec.describe :engine do
   pending
 end

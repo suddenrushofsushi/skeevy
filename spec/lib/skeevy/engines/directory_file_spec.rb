@@ -1,6 +1,6 @@
-RSpec.describe :directory_file, fakefs: true do
+RSpec.describe :directory_file do
 
-  let!(:dfs) { Skeevy::Engines::DirectoryFile.new(instance: nil, base_dir: '/tmp', delimiter: '-') }
+  let!(:dfs) { Skeevy::Engines::DirectoryFile.new(instance: nil, base_dir: 'tmp', delimiter: '-') }
   include_examples "a skeevy engine"
 
   describe 'E:DF specific tests' do

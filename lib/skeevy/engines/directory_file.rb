@@ -52,7 +52,11 @@ module Skeevy
 
       def delete!(key:)
         path = path_for(key: key)
-        File.unlink(path) == 1 ? true : false
+        if exist?(path: path, key: nil)
+          File.unlink(path)
+          return true
+        end
+        false
       end
 
       private

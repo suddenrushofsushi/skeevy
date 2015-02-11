@@ -59,6 +59,12 @@ module Skeevy
         false
       end
 
+      def keys
+        @files = []
+        check_directory(dir: "#{@base_dir}/*")
+        @files
+      end
+
       private
 
       def ensure_exists(path:)
@@ -68,6 +74,16 @@ module Skeevy
 
       def ensure_base_dir_exists
         ensure_exists(path: @base_dir)
+      end
+
+      def check_directory(dir:, prefix: '')
+        Dir.glob(dir).each do |f|
+          if(File.directory? f)
+            check_directory(dir: "#{f}/*", prefix: f)
+          else
+            @files << f.gsub("#{@base_dir}/", '').gsub('/', @delimiter)
+          end
+        end
       end
     end
   end

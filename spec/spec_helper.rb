@@ -11,7 +11,7 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  config.after(:all) do
+  config.after(:each) do
     FileUtils.rm_rf(Dir["tmp/[^.]*"])
   end
 

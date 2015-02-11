@@ -35,9 +35,7 @@ module Skeevy
       def read(key:)
         path = path_for(key: key)
         if exist?(path: path, key: nil)
-          File.open(path, "r:#{@encoding}") { |f|
-            f.read
-          }
+          IO.binread(path)
         else
           nil
         end
@@ -45,9 +43,7 @@ module Skeevy
 
       def write!(key:, content:)
         path = path_for(key: key)
-        File.open(path, "w:#{@encoding}") { |f|
-          f.write content
-        }
+        IO.binwrite(path, content)
       end
 
       def delete!(key:)

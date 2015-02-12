@@ -18,5 +18,9 @@ module Skeevy
     def delete!(key:)
       raise NoMethodError, "Your Engine is missing .delete!"
     end
+
+    def keys
+      raise NoMethodError, "Your Engine is missing .keys"
+    end
   end
 end

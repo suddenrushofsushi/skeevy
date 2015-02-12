@@ -54,4 +54,14 @@ RSpec.shared_examples 'a skeevy engine' do
     end
   end
 
+  describe '#keys' do
+    it 'lists all existing keys' do
+      puts the_engine.keys
+      k = 'keys_test-file.json'
+      k2 = 'a-b-c-file.json'
+      the_engine.write!(key: k, content: '{}')
+      the_engine.write!(key: k2, content: '{}')
+      expect(the_engine.keys.sort).to eq ['a-b-c-file.json', 'keys_test-file.json']
+    end
+  end
 end

@@ -25,10 +25,21 @@ module Skeevy
     end
 
     def read(key:)
-      @engine.read(key: key)
+      content = @engine.read(key: key)
+      unless @filters.nil?
+        @filters.reverse.each do |f|
+          content = f.filter_read(content: content)
+        end
+      end
+      content
     end
 
     def write!(key:, content:)
+      unless @filters.nil?
+        @filters.each do |f|
+          content = f.filter_write(content: content)
+        end
+      end
       @engine.write!(key: key, content: content)
     end
 
@@ -44,5 +55,9 @@ module Skeevy
       { identifier: @identifier, engine: @engine, cutter: @cutter}.to_s
     end
 
+    def add_filter(filter:)
+      @filters = [] if @filters.nil?
+      @filters << filter
+    end
   end
 end

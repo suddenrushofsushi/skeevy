@@ -5,12 +5,16 @@ module Skeevy
 
     def initialize(identifier:,
                    engine: nil,
-                   cutter: nil)
+                   cutter: nil,
+                   filters: []
+    )
       raise(ArgumentError, "identifier must be a Symbol") unless identifier.is_a?(Symbol)
       raise(ArgumentError, "engine #{engine} is not a Skeevy Engine!") unless engine.is_a?(Skeevy::Engine) || engine.nil?
       raise(ArgumentError, "cutter #{cutter} is not a Skeevy Cutter!") unless cutter.is_a?(Skeevy::Cutter) || cutter.nil?
+      raise(ArgumentError, "filters must be an array") unless filters.is_a?(Array)
       @cutter = cutter || Skeevy::Cutters::StandardKey.new(instance: self)
       @engine = engine || Skeevy::Engines::SymbolicHash.new(instance: self)
+      @filters = filters
       @cutter.instance ||= self
       @engine.instance ||= self
       @identifier = identifier
@@ -26,19 +30,15 @@ module Skeevy
 
     def read(key:)
       content = @engine.read(key: key)
-      unless @filters.nil?
-        @filters.reverse.each do |f|
-          content = f.filter_read(content: content)
-        end
+      @filters.reverse.each do |f|
+        content = f.filter_read(content: content)
       end
       content
     end
 
     def write!(key:, content:)
-      unless @filters.nil?
-        @filters.each do |f|
-          content = f.filter_write(content: content)
-        end
+      @filters.each do |f|
+        content = f.filter_write(content: content)
       end
       @engine.write!(key: key, content: content)
     end
@@ -56,7 +56,6 @@ module Skeevy
     end
 
     def add_filter(filter:)
-      @filters = [] if @filters.nil?
       @filters << filter
     end
   end

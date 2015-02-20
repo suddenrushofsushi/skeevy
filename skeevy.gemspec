@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'skeevy'
-  s.version     = '0.0.2'
-  s.date        = '2014-12-30'
+  s.version     = '1.0.1'
+  s.date        = '2015-02-13'
   s.summary     = "Skeevy"
   s.description = "A simple key-value store for objects"
   s.authors     = ["Craig Waterman"]
@@ -15,5 +15,5 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_development_dependency 'rspec',   '~> 3.1'
-  s.add_development_dependency 'guard-rspec', '~> 4.4.2'
+  s.add_development_dependency 'guard-rspec', '~> 4.4'
 end

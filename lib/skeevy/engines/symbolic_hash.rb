@@ -32,6 +32,9 @@ module Skeevy
         false
       end
 
+      def keys
+        @items.keys.map(&:to_s)
+      end
     end
   end
 end
